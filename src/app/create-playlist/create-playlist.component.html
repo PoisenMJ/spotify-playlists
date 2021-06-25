@@ -1,0 +1,15 @@
+<div class="main">
+    <div id="details-section">
+        <div id="playlist-image-parent">
+            <img id="playlist-image" src="../../assets/images/default.jpg">
+        </div>
+        <div id="playlist-details">
+            <span class="playlist-name text-light fs-5 lead">Playlist Name</span>
+            <span class="playlist-description text-light fs-6 fw-bolder">Playlist description...</span>
+        </div>
+    </div>
+    <div *ngFor="let track of tracks" id="playlist-tracks">
+        <span class="playlist-track-name">{{track.name}}</span>
+        <span class="playlist-track-artist">{{track.artist}}</span>
+    </div>
+</div>

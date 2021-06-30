@@ -1,15 +1,22 @@
 <div class="main">
-    <div id="details-section">
-        <div id="playlist-image-parent">
-            <img id="playlist-image" src="../../assets/images/default.jpg">
-        </div>
-        <div id="playlist-details">
-            <span class="playlist-name text-light fs-5 lead">Playlist Name</span>
-            <span class="playlist-description text-light fs-6 fw-bolder">Playlist description...</span>
-        </div>
+    <!-- <div class="playlist-image-parent">
+        <img id="playlist-image" (click)="imageFileInput()" src="../../assets/images/default.jpg">
+        <input type="file" id="image-file-input" (change)="onImageFileSelected($event)">
+    </div> -->
+    <div class="playlist-create">
+        <button mat-fab color="primary" id="playlist-create-button" (click)="openPlaylistCreateDialog()">
+            <i class="material-icons">done</i>
+        </button>
     </div>
-    <div *ngFor="let track of tracks" id="playlist-tracks">
-        <span class="playlist-track-name">{{track.name}}</span>
-        <span class="playlist-track-artist">{{track.artist}}</span>
+    <div class="tracks">
+        <div class="track" *ngFor="let track of tracks">
+            <img class="track-image" src={{track.image}}>
+            <div class="track-details">
+                <span class="track-name lead text-light">{{track.name}}</span>
+                <span class="track-artist fw-bolder text-light">{{track.artist}}</span>
+            </div>
+            <span class="track-album fs-5 text-light">{{track.album}}</span>
+            <span class="track-genre text-light">{{track.genre[0]}}</span>
+        </div>
     </div>
 </div>

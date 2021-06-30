@@ -1,13 +1,13 @@
 
 <mat-toolbar>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
+        <i class="material-icons">menu</i>
     </button>
     <span>Spotify Sorter</span>
     <span class="spacer"></span>
-    <mat-form-field class="filter-input" color="warn" appearance="outline">
+    <div class="filter">
         <input id="filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="Seach here..." [(ngModel)]="value" #input>
-    </mat-form-field>
+    </div>
     <button mat-flat-button color="primary">
         <a id="createPlaylistButton" routerLink="../create-playlist">Create +</a>
     </button>

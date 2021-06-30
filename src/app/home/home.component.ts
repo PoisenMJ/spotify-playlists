@@ -40,12 +40,14 @@ export class HomeComponent implements OnInit {
     console.log(this.alreadySignedIn);
     this.route.queryParams.subscribe(params => {
       this.spotify.spotifyGetAccessCode(params['code']).then(() => {
-        this.alreadySignedIn = true;
-        this.spotify.getAllUserTracks().then(data => {
-          this.track_data.setData(data as unknown as Array<TrackDataModel>);
-          this.track_data.setPaginator(this.paginator);
-          this.songs = this.track_data.getMatTable();
-          this.songsLoaded = true;
+        this.spotify.getUserInfo().then(res => {
+          this.alreadySignedIn = true;
+          this.spotify.getAllUserTracks().then(data => {
+            this.track_data.setData(data as unknown as Array<TrackDataModel>);
+            this.track_data.setPaginator(this.paginator);
+            this.songs = this.track_data.getMatTable();
+            this.songsLoaded = true;
+          });
         });
       });
     })

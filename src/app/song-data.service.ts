@@ -7,6 +7,7 @@ export interface TrackDataModel {
   name: string,
   artist: string,
   genre: string,
+  album: string,
   date_added: string,
   position: number,
   selected: boolean,

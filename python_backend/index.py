@@ -1,4 +1,6 @@
+from keys import SPOTIFY_CLIENT, SPOTIFY_SECRET, SPOTIFY_SCOPE, SPOTIFY_REDIRECT
 from flask import Flask, request
+from flask_cors import CORS
 import dateparser
 import requests
 import urllib
@@ -7,16 +9,13 @@ import json
 import os
 
 app = Flask(__name__)
-
-SPOTIFY_CLIENT = "4b6d0c642f6a4f97ae98fbd993ca6ec4"
-SPOTIFY_SECRET = "13f4f42053b647ee96e67c7decb95c31"
-SPOTIFY_SCOPE = "user-library-read user-read-email user-read-private"
-SPOTIFY_REDIRECT =  "http://localhost:4200/spotify-authorize-redirect"
+CORS(app)
 
 access_token = ''
 refresh_token = ''
 expires_in = ''
 all_songs = []
+user_id = ''
 
 @app.route('/spotify/access_token')
 def spotify_get_access_token():
@@ -41,7 +40,7 @@ def spotify_get_access_token():
 
 @app.route('/spotify/user_info')
 def spotify_user_info():
-    global access_token
+    global access_token, user_id
     headers = {"Authorization": "Bearer " + access_token}
     r = requests.get("https://api.spotify.com/v1/me", headers=headers)
     data = json.loads(r.text)
@@ -53,6 +52,7 @@ def spotify_user_info():
         "image": data['images'][0]['url'],
         "type": data['product']
     })
+    user_id = data['id']
     response = app.response_class(
         response=json_data,
         mimetype='application/json'
@@ -182,3 +182,25 @@ def get_genre(artists):
     r = requests.get("https://api.spotify.com/v1/artists?ids=" + artist_string, headers=headers)
     a = json.loads(r.text)
     return [x['genres'] for x in a['artists']]
+
+@app.route('/spotify/create_playlist', methods=["POST", "GET"])
+def create_playlist():
+    global user_id, access_token
+    print(user_id)
+    json_data = request.get_json()
+    headers = {"Authorization": "Bearer " + access_token}
+    body = {"name": json_data['name'],
+            "public": json_data['visibility'],
+            "collaborative": json_data['collaborative'],
+            "description": json_data['description']}
+    r = requests.post(f"https://api.spotify.com/v1/users/{user_id}/playlists", 
+                        headers=headers, data=body)
+    response_json = json.dumps(json.loads(r.text))
+    print(response_json)
+    response = app.response_class(
+        response=response_json,
+        mimetype='applicatoin/json'
+    )
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    # response.headers["Access-Control-Allow-Methods"] = "POST"
+    return response 

@@ -1,5 +1,5 @@
 .spacer {
-    flex: 1 1 auto;
+    flex: auto;
 }
 .main{
     width: 100%;
@@ -8,14 +8,20 @@
 }
 #tracks-table{width: 100%!important;}
 .track-image{max-height: 3.5rem;}
-.filter-input{
-    padding-top: 0.4rem;
-    padding-left: 0.6rem;
-    padding-right: 0.2rem;
-    text-decoration: none;
-    height: 100%;
-}
 #createPlaylistButton{ text-decoration: none!important; color: white!important;}
+
+.filter{
+    display: grid;
+    height: 100%;
+    place-items: center;
+}
+.filter-input{ 
+    max-height: 50px;
+    overflow: hidden;
+}
+mat-form-field.mat-form-field {
+    font-size: 12px;
+}
 #filter-input-text{ color: white; }
 .track-name-details{
     display: grid!important;

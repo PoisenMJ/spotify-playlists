@@ -9,13 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreatePlaylistDialogComponent } from './create-playlist-dialog/create-playlist-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SignInComponent,
     HomeComponent,
     CreatePlaylistComponent,
+    CreatePlaylistDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,13 +36,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatInputModule,
     MatPaginatorModule,
-    MatIconModule,
     FormsModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule,
+    MatIconModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

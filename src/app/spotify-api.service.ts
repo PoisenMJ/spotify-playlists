@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TrackDataModel } from './song-data.service';
 
-var SPOTIFY_CLIENT = "4b6d0c642f6a4f97ae98fbd993ca6ec4";
-var SPOTIFY_SECRET = "13f4f42053b647ee96e67c7decb95c31";
-var SPOTIFY_SCOPE = "user-library-read user-read-email user-read-private";
-var SPOTIFY_REDIRECT =  "http://localhost:4200/spotify-authorize-redirect";
+import { SPOTIFY_CLIENT, SPOTIFY_SCOPE, SPOTIFY_REDIRECT } from './keys';
 
 @Injectable({
   providedIn: 'root'

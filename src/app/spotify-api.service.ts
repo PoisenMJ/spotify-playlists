@@ -45,10 +45,15 @@ export class SpotifyApiService {
   }
   createPlaylist(tracks : Array<TrackDataModel>, playlist_name : string, playlist_visibility : string, playlist_collaborative : string, playlist_description : string){
     return new Promise<void>(resolve => {
+      var uri_array : Array<String> = [];
+      tracks.forEach((value) => {
+        uri_array.push(value.id)
+      });
       let payload_dict = {name: playlist_name,
                           visibility: playlist_visibility,
                           collaborative: playlist_collaborative,
-                          description: playlist_description};
+                          description: playlist_description,
+                          tracks: uri_array};
       fetch("http://localhost:5000/spotify/create_playlist", {
         method: "POST",
         headers: {

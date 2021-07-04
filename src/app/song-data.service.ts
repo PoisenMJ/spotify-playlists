@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SpotifyApiService } from './spotify-api.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 export interface TrackDataModel {
   name: string,
@@ -39,6 +40,4 @@ export class SongDataService {
       }
     }
   }
-
-  setPaginator(p : MatPaginator){ this.track_data.paginator = p; }
 }

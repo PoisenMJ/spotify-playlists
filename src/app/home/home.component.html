@@ -6,15 +6,23 @@
     <span>Spotify Sorter</span>
     <span class="spacer"></span>
     <div class="filter">
-        <input id="filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="Seach here..." [(ngModel)]="value" #input>
+        <input id="filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="search" [(ngModel)]="value">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="material-icons">more_vert</i>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button *ngFor="let filter of filterColumns" mat-menu-item (click)="setFilter(filter)">
+                <span>{{filter}}</span>
+            </button>
+        </mat-menu>
     </div>
-    <button mat-flat-button color="primary">
-        <a id="createPlaylistButton" routerLink="../create-playlist">Create +</a>
+    <button mat-mini-fab color="primary" (click)="navigateCreatePlaylist()">
+        <i class="material-icons">check</i>
     </button>
 </mat-toolbar>  
 <div class="main">
     <div class="tracks">
-        <table id="tracks-table" mat-table [dataSource]="songs">
+        <table id="tracks-table" mat-table matSort matSortStart="desc" (matSortChange)="sortData($event)" [dataSource]="songs">
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? selectAllSongs($event.checked) : null"
@@ -34,21 +42,37 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>name</th>
                 <td mat-cell *matCellDef="let song">
                     <span class="track-name fs-5 lead">{{song.name}}</span>
-                    <br>
-                    <span class="track-artist fs-6 fw-bolder ">{{song.artist}}</span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="artist">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>artist</th>
+                <td mat-cell *matCellDef="let song">
+                    <span class="track-artist fs-5">{{song.artist}}</span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="album">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>album</th>
+                <td mat-cell *matCellDef="let song">
+                    <span class="track-album fs-5">{{song.album}}</span>
                 </td>
             </ng-container>
             <ng-container matColumnDef="genre">
-                <th mat-header-cell *matHeaderCellDef> Genre </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre </th>
                 <td mat-cell *matCellDef="let song">
                     <span matTooltipVisibility="visible"
-                            matTooltip="song.genre.join(', ')"
-                            matTooltipHideDelay="100000"
+                            [matTooltip]="song.genre.join(', ')"
+                            matTooltipHideDelay="10"
                             *ngIf="song.genre.length > 1">{{song.genre[0]}}...</span>
                     <span *ngIf="song.genre.length == 1">{{song.genre[0]}}</span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="date_added">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+                <td mat-cell *matCellDef="let song">
+                    <span class="track-added fs-6">{{song.date_added}}</span>
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

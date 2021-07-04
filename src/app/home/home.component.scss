@@ -11,18 +11,22 @@
 #createPlaylistButton{ text-decoration: none!important; color: white!important;}
 
 .filter{
-    display: grid;
-    height: 100%;
-    place-items: center;
-}
-.filter-input{ 
-    max-height: 50px;
-    overflow: hidden;
+    width: 15%;
+    display: flex;
+    margin-right: 1.5rem;
+    border: 1px solid white;
+    border-radius: 0.2rem;
+    background-color: black;
 }
 mat-form-field.mat-form-field {
     font-size: 12px;
 }
-#filter-input-text{ color: white; }
+#filter-input-text{
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 1rem;
+}
 .track-name-details{
     display: grid!important;
     grid-template-rows: 50% 50%;

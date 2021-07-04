@@ -186,21 +186,43 @@ def get_genre(artists):
 @app.route('/spotify/create_playlist', methods=["POST", "GET"])
 def create_playlist():
     global user_id, access_token
-    print(user_id)
     json_data = request.get_json()
+    public = 'true' if json_data['visibility'] == 'Public' else 'false'
     headers = {"Authorization": "Bearer " + access_token}
     body = {"name": json_data['name'],
-            "public": json_data['visibility'],
+            "public": public,
             "collaborative": json_data['collaborative'],
             "description": json_data['description']}
+    
     r = requests.post(f"https://api.spotify.com/v1/users/{user_id}/playlists", 
-                        headers=headers, data=body)
-    response_json = json.dumps(json.loads(r.text))
-    print(response_json)
-    response = app.response_class(
+                        headers=headers, data=json.dumps(body))
+    response_json = json.loads(r.text)
+    # successful creation
+
+    if "id" in response_json:
+        s = json_data['tracks']
+        current = []
+        for i,v in enumerate(s):
+            if len(s) > 100:
+                if len(current) < 100:
+                    current.append(v)
+                else:
+                    add_tracks_to_playlist(response_json['id'], access_token, current)
+                    current = []
+            else:
+                current.append(v)
+                if i == len(s)-1: add_tracks_to_playlist(response_json['id'], access_token, current)
+    
+    res = app.response_class(
         response=response_json,
-        mimetype='applicatoin/json'
-    )
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    # response.headers["Access-Control-Allow-Methods"] = "POST"
-    return response 
+        mimetype= 'application/json')
+    return res
+    
+def add_tracks_to_playlist(playlist_id, access_token, track_uris):
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+    headers = {"Authorization": "Bearer " + access_token, "Content-Type": "application/json"}
+    body = {"uris": track_uris}
+    print(body)
+    r = requests.post(url, headers=headers, data=json.dumps(body))
+    print(json.loads(r.text))
+    

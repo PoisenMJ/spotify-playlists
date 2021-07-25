@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import { SpotifyApiService } from './spotify-api.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 
 export interface TrackDataModel {
   name: string,
   artist: string,
   genre: string,
   album: string,
-  date_added: string,
-  position: number,
+  date_added: string, 
   selected: boolean,
   id: string,
   image: string
@@ -23,14 +19,47 @@ export class SongDataService {
 
   private track_data !: MatTableDataSource<TrackDataModel>;
 
-  constructor(private spotify_api : SpotifyApiService) { }
+  constructor() { }
 
-  setData(d : Array<TrackDataModel>){ 
-    this.track_data = new MatTableDataSource<TrackDataModel>(d); 
+  setData(d : Array<TrackDataModel>){
+    this.track_data =  new MatTableDataSource<TrackDataModel>(d);
+    return this.track_data;
   }
-  getMatTable(){ return this.track_data; }
   getData(){ return this.track_data.data; }
   addData(d : TrackDataModel){ this.track_data.data.push(d);}
+
+  checkSongsSaved(){
+    return new Promise<boolean>(resolve => {
+      var a = localStorage.getItem("tracks") ? true : false;
+      resolve(a);
+    })
+  }
+
+  saveSongs(){
+    return new Promise<void>(resolve => {
+      fetch("http://localhost:5000/save_songs", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.track_data.data)
+      }).then(() => resolve());
+    })
+  }
+
+  clearSongs(){
+    return new Promise<void>(resolve => {
+      fetch("http://localhost:5000/clear_songs").then(data => data.json()).then(json_data => resolve(json_data));
+    })
+  }
+
+  getSavedSongs(){
+    return new Promise<void>(resolve => {
+      resolve(JSON.parse(localStorage.getItem("tracks") as string));
+    })
+  }
+
   removeData(trackID : String){
     for(var i = 0; i < this.track_data.data.length; i++){
       if(this.track_data.data[i].id == trackID) {

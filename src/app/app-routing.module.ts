@@ -7,7 +7,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 const routes: Routes = [
   { path: '', component: SignInComponent },
   { path: 'spotify-authorize-redirect', component: HomeComponent },
-  { path: 'create-playlist', component: CreatePlaylistComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'create-playlist', component: CreatePlaylistComponent }
 ];
 
 @NgModule({

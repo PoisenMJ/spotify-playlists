@@ -1,34 +1,69 @@
 .main{
-    width: 100%;
+    width: 80vw;
+    display: flex;
+    min-height: 100vh;
+    background-color: #1b1b1b;
+    float: left;
+    flex-direction: column;
+}
+.spacer{ flex: auto; }
+.toolbar{
+    padding: 1rem;
+}
+.tracks{ overflow-y: auto; }
+.playlists{
+    width: 20vw;
+    position: fixed;
+    right: 0;
+    max-height: 100%;
+    overflow-y: scroll;
+    background-color: rgb(5,5,5);
+}
+.playlist{
+    max-width: 100%;
+    overflow: hidden;
+    height: 4rem;
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: "image details";
 }
-
-.playlist-create{
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding-top: 10px;
-    padding-right: 10px;
+.playlist-image{
+    width: 100%;
+    overflow-x: hidden;
+    place-self: center;
+    filter:grayscale(1) blur(1px);
+    grid-area: image;
 }
-
-#playlist-create-button{
-    width: 60px;
-    height: 60px; 
+.playlist-name{
+    align-self: end;
+    font-size: 1.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.material-icons{
-    font-size: 30px;
+.playlist-public{ align-self: start; font-size: 0.75rem; color: rgb(200,200,200); }
+.playlist-count{ place-self: center; }
+.playlist-name-box{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    padding-left: 0.5rem;
+}
+.playlist-details{
+    grid-area: details;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
 }
 
 .track{
     width: 100%;
     height: 5rem;
     display: grid;
-    grid-template-columns: minmax(0%, 10%) 4fr 4fr 4fr;
-    grid-template-areas: "image details album genre";
+    grid-template-columns: 1fr minmax(0%, 10%) 4fr 4fr 4fr 2fr;
+    grid-template-areas: "index image details album genre date";
     align-items: center;
     background-color: #1b1b1b;
 }
+.track-index{ grid-area: index; font-weight: 800; place-self: center; }
 .track-image{ height: 100%; grid-area: image; justify-self: start; }
 .track-details{ 
     grid-area: details; 
@@ -38,3 +73,4 @@
 }
 .track-name{ align-self: end; }
 .track-artist{ align-self: start; }
+.track-added{ grid-area: date; }

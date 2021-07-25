@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { SpotifyApiService } from './spotify-api.service';
+import { SongDataService } from './song-data.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -51,9 +56,12 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatButtonToggleModule,
     MatMenuModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatChipsModule
   ],
-  providers: [],
+  providers: [SpotifyApiService, SongDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

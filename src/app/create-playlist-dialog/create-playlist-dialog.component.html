@@ -1,28 +1,23 @@
-<mat-dialog-content>
-    <div class="dialog-content">
+<mat-dialog-content class="dialog-parent">
+    <div class="playlist-main">
         <div class="playlist-image-parent">
-            <img id="playlist-image" src="../../assets/images/default.jpg">
+            <img id="playlist-image" (click)="onImageClick()" src="../../assets/images/default.jpg">
+            <input type="file" accept="image/jpg, image/jpeg" id="image-file-input" (change)="processImage($event)" style="display: none;">
         </div>
         <div class="playlist-details">
             <input class="playlist-name" [(ngModel)]="name" placeholder="Playlist Name">
-            <mat-checkbox class="collaborative-checkbox" [(ngModel)]="collaborative">Collaborative</mat-checkbox>
-        </div>
-        <div class="playlist-description">
-            <mat-form-field appearance="outline">
-                <mat-label>Description...</mat-label>
-                <textarea cdkTextareaAutosize matInput [(ngModel)]="description"></textarea>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Visibility</mat-label>
-                <mat-select [(ngModel)]="visibility">
-                    <mat-option value="public">Public</mat-option>
-                    <mat-option value="private">Private</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="playlist-options">
+                <mat-checkbox class="public-checkbox" [(ngModel)]="public">Public</mat-checkbox>
+                <mat-checkbox class="collaborative-checkbox" [(ngModel)]="collaborative">Collaborative</mat-checkbox>
+            </div>
         </div>
     </div>
+    <mat-form-field appearance="outline" class="playlist-description">
+        <mat-label>Description...</mat-label>
+        <textarea matInput [(ngModel)]="description" placeholder="Playlist description."></textarea>
+    </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-    <button mat-button cdkFocusInitial (click)="createPlaylist()">Create</button>
+<mat-dialog-actions class="dialog-butttons">
+    <button mat-flat-button color="accent" mat-dialog-close>Close</button>
+    <button mat-flat-button color="primary" cdkFocusInitial (click)="createPlaylist()">Create</button>
 </mat-dialog-actions>

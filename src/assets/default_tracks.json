@@ -1,0 +1,154 @@
+{"tracks":[{
+    "name": "The Negative One",
+    "artist": "Slipknot",
+    "genre": ["Metalcore"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The grey chapter VII.",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "When the rain falls",
+    "artist": "Crash bang",
+    "genre": ["Metalcore"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Thapter VII.",
+    "date_added": "2021-2-5",
+    "selected": "false",
+    "id": "spotify:uri:21231231203"
+},{
+    "name": "Darkness falls",
+    "artist": "BFR",
+    "genre": ["POP"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Bubbley gum",
+    "date_added": "2020-1-5",
+    "selected": "false",
+    "id": "spotify:uri:2012312as132"
+},{
+    "name": "Candy",
+    "artist": "Robgin Williams",
+    "genre": ["indie"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Candy",
+    "date_added": "2015-2-5",
+    "selected": "false",
+    "id": "spotify:uri:501231203"
+},{
+    "name": "Catch me crying",
+    "artist": "alter band",
+    "genre": ["alt"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The crier.",
+    "date_added": "2021-2-5",
+    "selected": "false",
+    "id": "spotify:uri:241231203"
+},{
+    "name": "Facts",
+    "artist": "Jesus was a hypocrite",
+    "genre": ["Happiness-liquid"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Liquid ecstasy.",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201asd1203"
+},{
+    "name": "Cant stop",
+    "artist": "RHCP",
+    "genre": ["rock"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Cant stop",
+    "date_added": "2014-2-5",
+    "selected": "false",
+    "id": "spotify:uri:22341231203"
+},{
+    "name": "Dont stop the beans",
+    "artist": "Bean-core",
+    "genre": ["indie"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Beans",
+    "date_added": "2020-6-1",
+    "selected": "false",
+    "id": "spotify:uri:20131203"
+},{
+    "name": "Really really cool",
+    "artist": "Band-name",
+    "genre": ["genre"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The grey chapter VII.",
+    "date_added": "2020-1-12",
+    "selected": "false",
+    "id": "spotify:uri:2012as1203"
+},{
+    "name": "Round the bend",
+    "artist": "Creedence clearwater",
+    "genre": ["oldies"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "Clearwater",
+    "date_added": "2016-6-22",
+    "selected": "false",
+    "id": "spotify:uri:20123781203"
+},{
+    "name": "Dont stop till' you get enough.",
+    "artist": "Michael Jackson",
+    "genre": ["old"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "I dunno",
+    "date_added": "2016-8-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "Cant fell",
+    "artist": "Fe;wok",
+    "genre": ["dance"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The grey chapter VII.",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "Fricking heck",
+    "artist": "jackson 5",
+    "genre": ["oldies"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The main chapter",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:20123w8903"
+},{
+    "name": "Sulfur",
+    "artist": "Slipknot",
+    "genre": ["Metalcore"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "The grey chapter VII.",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "Killpop",
+    "artist": "Slipknot",
+    "genre": ["Metalcore"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "I doint actually know.",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "Rouindasdlkfj",
+    "artist": "aspfohid",
+    "genre": ["indie"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "smiley face",
+    "date_added": "2020-6-30",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+},{
+    "name": "Mr smiley",
+    "artist": "cast away",
+    "genre": ["alt-rock"],
+    "image": "./assets/images/default_track.jpg",
+    "album": "smiles all around",
+    "date_added": "2020-2-5",
+    "selected": "false",
+    "id": "spotify:uri:201231203"
+}]}

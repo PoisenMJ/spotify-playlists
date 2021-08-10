@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TrackDataModel } from './song-data.service';
 
-import keys_data from '../assets/keys.json';
+import keys_data from '../assets/keys.json';     
 const SPOTIFY_CLIENT = keys_data.spotify_api.SPOTIFY_CLIENT;
 const SPOTIFY_SCOPE = keys_data.spotify_api.SPOTIFY_SCOPE;
 const SPOTIFY_REDIRECT = keys_data.spotify_api.SPOTIFY_REDIRECT;
@@ -22,31 +22,37 @@ export class SpotifyApiService {
     })
   }
   spotifySignOut(){
-    localStorage.removeItem("tracks");
+    sessionStorage.removeItem("tracks");
   }
   spotifyGetAccessCode(code : String) : Promise<void>{
-    return new Promise<void>(resolve => {
-      fetch("http://localhost:5000/spotify/access_token?code="+code, {
+    return new Promise<void>((resolve, reject) => {
+      fetch("http://localhost:8000/api/access_token?code="+code, {
         method: "GET"
-      }).then(response => response.json()).then(data => {
+      }).then(response => {
+        if(response.status == 404) return reject();
+        else return response.json();
+      }).then(data => {
         resolve();
       })
     })
   }
   getUserInfo() : Promise<any>{
-    return new Promise<any>(resolve => {
-      fetch("http://localhost:5000/spotify/user_info", {
+    return new Promise<any>((resolve, reject) => {
+      fetch("http://localhost:8000/api/user_info", {
         method: "GET",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         } 
-      }).then(response => response.json()).then(data => resolve(data));
+      }).then(response => {
+        if(response.status == 404) return reject();
+        else return response.json()
+      }).then(data => resolve(data));
     })
   }
   getAllUserTracks() : Promise<void>{
     return new Promise<void>(resolve => {
-      fetch("http://localhost:5000/spotify/get_all_songs", {
+      fetch("http://localhost:8000/api/get_all_songs", {
         method: "GET"
       }).then(response => response.json()).then(data => resolve(data));
     })
@@ -57,7 +63,7 @@ export class SpotifyApiService {
                   playlist_collaborative : string,
                   playlist_description : string,
                   playlist_image : string){
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve, reject) => {
       var uri_array : Array<String> = [];
       tracks.forEach((value) => {
         uri_array.push(value.id)
@@ -68,7 +74,7 @@ export class SpotifyApiService {
                           description: playlist_description,
                           tracks: uri_array,
                           image: playlist_image ? playlist_image : "none"};
-      fetch("http://localhost:5000/spotify/create_playlist", {
+      fetch("http://localhost:8000/api/create_playlist", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -77,14 +83,18 @@ export class SpotifyApiService {
         body: JSON.stringify(payload_dict)
       }).then(response => {
         if(response.status == 200) resolve()
+        else reject();
       });
     })
   }
   getPlaylists(){
-    return new Promise<void>(resolve => {
-      fetch("http://localhost:5000/spotify/get_playlists", {
+    return new Promise<void>((resolve, reject) => {
+      fetch("http://localhost:8000/api/get_playlists", {
         method: "GET"
-      }).then(response => response.json()).then(json_data => resolve(json_data));
+      }).then(response => {
+        if (response.status == 404) return reject()
+        else return response.json()
+      }).then(json_data => resolve(json_data));
     })
   }
 }

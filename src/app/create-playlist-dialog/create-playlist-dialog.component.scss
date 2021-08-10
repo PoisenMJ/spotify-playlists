@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
 }
-#playlist-image{ flex-shrink: 0; max-width: 15vw; cursor: pointer; }
+#playlist-image{ flex-shrink: 0; width: 15vw; height: 15vw; cursor: pointer; object-fit: cover; }
 #playlist-image:hover{ filter: brightness(0.7); }
 #image-file-input{ display: none; }
 .playlist-details{

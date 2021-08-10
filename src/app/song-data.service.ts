@@ -30,23 +30,23 @@ export class SongDataService {
 
   checkSongsSaved(){
     return new Promise<boolean>(resolve => {
-      var a = localStorage.getItem("tracks") ? true : false;
+      var a = sessionStorage.getItem("tracks") ? true : false;
       resolve(a);
     })
   }
 
-  saveSongs(){
-    return new Promise<void>(resolve => {
-      fetch("http://localhost:5000/save_songs", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.track_data.data)
-      }).then(() => resolve());
-    })
-  }
+  // saveSongs(){
+  //   return new Promise<void>(resolve => {
+  //     fetch("http://localhost:5000/save_songs", {
+  //       method: "POST",
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(this.track_data.data)
+  //     }).then(() => resolve());
+  //   })
+  // }
 
   clearSongs(){
     return new Promise<void>(resolve => {
@@ -56,7 +56,7 @@ export class SongDataService {
 
   getSavedSongs(){
     return new Promise<void>(resolve => {
-      resolve(JSON.parse(localStorage.getItem("tracks") as string));
+      resolve(JSON.parse(sessionStorage.getItem("tracks") as string));
     })
   }
 

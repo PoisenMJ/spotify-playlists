@@ -1,12 +1,7 @@
-.spacer {
-    flex: auto;
-}
-.sign-out{
-    margin-right: 1rem;
-}
-#sign-out-button{
-    cursor: pointer;
-}
+.spacer { flex: auto; }
+.sign-out{ margin-right: 1rem; }
+#sign-out-button{ cursor: pointer; }
+.selected{ background-color: #e91e63; }
 .user-image{
     height: 100%;
     border-radius: 50%;
@@ -32,8 +27,14 @@
 .track-image{max-height: 3.5rem;}
 #createPlaylistButton{ text-decoration: none!important; color: white!important;}
 .mat-row:hover{
-    background-color: rgb(71, 71, 71);
+    background-color: rgb(100, 100, 100);
     cursor: pointer;
+}
+.mat-row:active{
+    background-color: #d41a58;
+}
+.mat-row:checked{
+    background-color:rgb(90, 80, 80);
 }
 .blur{ 
     -webkit-filter: blur(5px);
@@ -49,6 +50,12 @@
     -ms-filter: blur(0px);
     filter: blur(0px);
 }
+.mat-column-name{
+    max-width: 25vw;
+}
+.mat-column-genre{
+    max-width: 20vw
+}
 .filter{
     width: 15%;
     display: flex;
@@ -57,6 +64,15 @@
     border-radius: 0.2rem;
     background-color: black;
 }
+.mobile-filter{
+    width: 100%;
+    display: flex;
+    border-radius: 0.2rem;
+    background-color: white;
+    margin-right: 15px;
+}
+#mobile-filter-input-text{ padding-left: 15px; padding-right: 15px; font-size: 1rem; color: black; }
+#mobile-filter-input-text::placeholder{ color: rgb(20, 20, 20); }
 mat-form-field.mat-form-field {
     font-size: 12px;
 }
@@ -72,7 +88,13 @@ mat-form-field.mat-form-field {
     overflow: hidden;
     white-space: nowrap;
 }
+.mat-cell{ text-overflow: ellipsis!important; overflow: hidden; padding-right: 10px!important; padding-left: 10px!important; }
 .track-image{ place-self: center; }
 .track-artist { align-self: start; }
 .track-genre { place-self: center; }
 .track-date-added { place-self: center; }
+
+.mobile-details-track{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}

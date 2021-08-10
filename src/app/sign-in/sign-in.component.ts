@@ -13,7 +13,7 @@ export class SignInComponent implements OnInit {
               private router : Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem("tracks") != null){
+    if(sessionStorage.getItem("tracks") != null){
       this.router.navigate(['/home']);
     }
   }

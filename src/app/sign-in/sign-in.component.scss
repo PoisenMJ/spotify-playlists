@@ -25,8 +25,10 @@
 
     @include for-phone-only{
         width: 100%;
+        padding:2.5rem;
     }
 }
+.parent p { @include for-phone-only{ padding-right: inherit; padding-left: inherit; }}
 #sign-in-button{
     width: 60%;
     font-size: 1rem;

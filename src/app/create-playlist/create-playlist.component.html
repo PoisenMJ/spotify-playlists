@@ -1,38 +1,38 @@
-<div class="main">
-    <mat-toolbar class="toolbar">
-        <button mat-icon-button routerLink="../home">
-            <i class="material-icons">chevron_left</i>
-        </button>
-        <span>Spotify Sorter</span>
-        <span class="spacer"></span>
-        <button mat-flat-button color="primary" [disabled]="createDisabled" id="playlist-create-button" (click)="openPlaylistCreateDialog()">
-            Create
-        </button>
-    </mat-toolbar>
-    <div class="tracks">
-        <div class="track" *ngFor="let track of tracks; let i = index;">
-            <span class="track-index text-light">{{i+1}}</span>
-            <img class="track-image" src={{track.image}}>
-            <div class="track-details">
-                <span class="track-name lead text-light">{{track.name}}</span>
-                <span class="track-artist fw-bolder text-light">{{track.artist}}</span>
+<div id="parent">
+    <div class="main">
+        <mat-toolbar class="toolbar">
+            <button mat-icon-button routerLink="../home">
+                <i class="material-icons">chevron_left</i>
+            </button>
+            <span>Spotify Sorter</span>
+            <span class="spacer"></span>
+            <button mat-flat-button color="primary" [disabled]="createDisabled" id="playlist-create-button" (click)="openPlaylistCreateDialog()">
+                Create
+            </button>
+        </mat-toolbar>
+        <div class="tracks">
+            <div class="track" *ngFor="let track of tracks; let i = index;">
+                <img class="track-image" src={{track.image}}>
+                <div class="track-details">
+                    <span class="track-name lead text-light">{{track.name}}</span>
+                    <span class="track-artist fw-bolder text-light">{{track.artist}}</span>
+                </div>
+                <span class="track-album fs-5 text-light">{{track.album}}</span>
+                <span class="track-genre text-light">{{track.genre[0]}}</span>
             </div>
-            <span class="track-album fs-5 text-light">{{track.album}}</span>
-            <span class="track-genre text-light">{{track.genre[0]}}</span>
-            <span class="track-added text-light">{{track.date_added}}</span>
         </div>
     </div>
-</div>
-<div class="playlists">
-    <div *ngFor="let playlist of playlists" class="playlist">
-        <img src={{playlist.image}} class="playlist-image">
-        <div class="playlist-details">
-            <div class="playlist-name-box">
-                <span class="playlist-name text-light">{{playlist.name}}</span>
-                <span class="playlist-public" *ngIf="playlist.public">Public</span>
-                <span class="playlist-public" *ngIf="!playlist.public">Private</span>
+    <div class="playlists">
+        <div *ngFor="let playlist of playlists" class="playlist">
+            <img src={{playlist.image}} class="playlist-image">
+            <div class="playlist-details">
+                <div class="playlist-name-box">
+                    <span class="playlist-name text-light">{{playlist.name}}</span>
+                    <span class="playlist-public" *ngIf="playlist.public">Public</span>
+                    <span class="playlist-public" *ngIf="!playlist.public">Private</span>
+                </div>
+                <span class="text-light playlist-count">{{playlist.track_count}}</span>
             </div>
-            <span class="text-light playlist-count">{{playlist.track_count}}</span>
         </div>
     </div>
 </div>

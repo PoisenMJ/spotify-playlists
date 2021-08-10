@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatChipsModule } from '@angular/material/chips';
     HomeComponent,
     CreatePlaylistComponent,
     CreatePlaylistDialogComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

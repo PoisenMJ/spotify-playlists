@@ -18,6 +18,8 @@ export class CreatePlaylistDialogComponent implements OnInit {
   description : string = "";
   image !: string;
 
+  creatingPlaylist = false;
+
   constructor(private dialogRef : MatDialogRef<CreatePlaylistComponent>,
               private spotifyAPI : SpotifyApiService,
               private track_data : SongDataService,
@@ -32,14 +34,18 @@ export class CreatePlaylistDialogComponent implements OnInit {
   }
 
   createPlaylist(){
+    this.creatingPlaylist = true;
+    this.dialogRef.close();
     this.spotifyAPI.createPlaylist(this.track_data.getData(),
     this.name, 
     (this.public ? "Public" : "Private"),
     this.collaborative.toString(),
     this.description,
     this.image).then(data => {
+      this.creatingPlaylist = false;
       this.openSnackBar();
-      this.dialogRef.close();
+    }).catch(() => {
+      sessionStorage.removeItem("tracks");
     });
   }
 

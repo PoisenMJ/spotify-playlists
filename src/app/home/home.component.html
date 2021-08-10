@@ -1,97 +1,194 @@
-
-<mat-toolbar>
-    <span>Spotify Sorter</span>
-    <button mat-flat-button color="primary" id="refreshButton" (click)="refresh()">
-        Refresh
-    </button>
-    <span class="spacer"></span>
-    <mat-chip-list class="sign-out">
-        <mat-chip id="sign-out-button" (click)="signOut()">
-            <img src="{{userImage}}" class="user-image">
-            Sign Out
-        </mat-chip>
-    </mat-chip-list>
-    <div class="filter">
-        <input id="filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="search" [(ngModel)]="value">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <i class="material-icons">more_vert</i>
+<div id="desktop" *ngIf="!isMobile">
+    <mat-toolbar>
+        <span>Spotify Sorter</span>
+        <button mat-flat-button color="primary" id="refreshButton" (click)="refresh()">
+            Refresh
         </button>
-        <mat-menu #menu="matMenu">
-            <button *ngFor="let filter of filterColumns" mat-menu-item (click)="setFilter(filter)">
-                <span>{{filter}}</span>
+        <span class="spacer"></span>
+        <mat-chip-list class="sign-out">
+            <mat-chip id="sign-out-button" (click)="signOut()">
+                <img src="{{userImage}}" class="user-image">
+                Sign Out
+            </mat-chip>
+        </mat-chip-list>
+        <div class="filter">
+            <input id="filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="search" [(ngModel)]="value">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="material-icons">more_vert</i>
             </button>
-        </mat-menu>
-    </div>
-    <button mat-mini-fab color="primary" (click)="navigateCreatePlaylist()" [disabled]="navigateDisabled">
-        <i class="material-icons">check</i>
-    </button>
-</mat-toolbar>  
-<div class="main">
-    <div class="tracks">
-        <div *ngIf="!loaded" class="loading">
-            <mat-spinner color="accent"></mat-spinner>
+            <mat-menu #menu="matMenu">
+                <button *ngFor="let filter of filterColumns" mat-menu-item (click)="setFilter(filter)">
+                    <span>{{filter}}</span>
+                </button>
+            </mat-menu>
         </div>
-        <table id="tracks-table" mat-table matSort matSortStart="desc" (matSortChange)="sortData($event)" [dataSource]="songs" class="blur">
-            <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? selectAllSongs($event.checked) : null"
-                                    [checked]="isAllSelected()"
-                                    [indeterminate]="masterToggleIntermediate()">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-checkbox [(ngModel)]="row.selected">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> Image </th>
-                <td mat-cell *matCellDef="let song">
-                    <img class="track-image" src="{{song.image}}">
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>name</th>
-                <td mat-cell *matCellDef="let song">
-                    <span class="track-name fs-5 lead">{{song.name}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="artist">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>artist</th>
-                <td mat-cell *matCellDef="let song">
-                    <span class="track-artist fs-5">{{song.artist}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="album">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>album</th>
-                <td mat-cell *matCellDef="let song">
-                    <span class="track-album fs-5">{{song.album}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="genre">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre </th>
-                <td mat-cell *matCellDef="let song">
-                    <span matTooltipVisibility="visible"
-                            [matTooltip]="song.genre.join(', ')"
-                            matTooltipHideDelay="10"
-                            *ngIf="song.genre.length > 1">{{song.genre[0]}}...</span>
-                    <span *ngIf="song.genre.length == 1">{{song.genre[0]}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="date_added">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
-                <td mat-cell *matCellDef="let song">
-                    <span class="track-added fs-6">{{song.date_added}}</span>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"
-                        (click)="clickTrack(row)"></tr>
-        </table>
-        <mat-paginator
-            [pageSize]="pageSize"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="onPageChange($event)">
-        </mat-paginator>
+        <button mat-mini-fab color="primary" (click)="navigateCreatePlaylist()" [disabled]="navigateDisabled">
+            <i class="material-icons">check</i>
+        </button>
+    </mat-toolbar>  
+    <div class="main">
+        <div class="tracks">
+            <div *ngIf="!loaded" class="loading">
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+            <table id="tracks-table" mat-table matSort matSortStart="desc" (matSortChange)="sortData($event)" [dataSource]="songs" class="blur">
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? selectAllSongs($event.checked) : null"
+                                        [checked]="isAllSelected()"
+                                        [indeterminate]="masterToggleIntermediate()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox [(ngModel)]="row.selected">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef> Image </th>
+                    <td mat-cell *matCellDef="let song">
+                        <img class="track-image" src="{{song.image}}">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>name</th>
+                    <td mat-cell *matCellDef="let song">
+                        <div *ngIf="isMobile" class="mobile-details-track">
+                            <span class="track-name font-size-1 lead">{{song.name}}</span>
+                            <span class="track-artist font-size-6">{{song.artist}}</span>
+                        </div>
+                        <span *ngIf="!isMobile" class="track-name fs-5 lead">{{song.name}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="artist">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>artist</th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-artist fs-5">{{song.artist}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="album">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>album</th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-album fs-5">{{song.album}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="genre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre </th>
+                    <td mat-cell *matCellDef="let song">
+                        <span matTooltipVisibility="visible"
+                                [matTooltip]="song.genre.join(', ')"
+                                matTooltipHideDelay="10"
+                                *ngIf="song.genre.length > 1">{{song.genre[0]}}...</span>
+                        <span *ngIf="song.genre.length == 1">{{song.genre[0]}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="date_added">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-added fs-6">{{song.date_added}}</span>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"
+                            (click)="clickTrack(row)"></tr>
+            </table>
+            <mat-paginator
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
     </div>
 </div>
+<div id="mobile" *ngIf="isMobile">
+    <mat-toolbar>
+        <div class="mobile-filter">
+            <input id="mobile-filter-input-text" matInput (keyup)="applyFilter($event)" placeholder="search" [(ngModel)]="value">
+            <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="material-icons">more_vert</i>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button *ngFor="let filter of filterColumns" mat-menu-item (click)="setFilter(filter)">
+                    <span>{{filter}}</span>
+                </button>
+            </mat-menu> -->
+        </div>
+        <button mat-mini-fab color="primary" (click)="navigateCreatePlaylist()" [disabled]="navigateDisabled">
+            <i class="material-icons">check</i>
+        </button>
+    </mat-toolbar>
+    <div class="main">
+        <div class="tracks">
+            <div *ngIf="!loaded" class="loading">
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+            <table id="tracks-table" mat-table matSort matSortStart="desc" (matSortChange)="sortData($event)" [dataSource]="songs" class="blur">
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? selectAllSongs($event.checked) : null"
+                                        [checked]="isAllSelected()"
+                                        [indeterminate]="masterToggleIntermediate()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox [(ngModel)]="row.selected">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef> Image </th>
+                    <td mat-cell *matCellDef="let song">
+                        <img class="track-image" src="{{song.image}}">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>name</th>
+                    <td mat-cell *matCellDef="let song">
+                        <div *ngIf="isMobile" class="mobile-details-track">
+                            <span class="track-name font-size-1 lead">{{song.name}}</span>
+                            <span class="track-artist font-size-6">{{song.artist}}</span>
+                        </div>
+                        <span *ngIf="!isMobile" class="track-name fs-5 lead">{{song.name}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="artist">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>artist</th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-artist fs-5">{{song.artist}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="album">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>album</th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-album fs-5">{{song.album}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="genre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre </th>
+                    <td mat-cell *matCellDef="let song">
+                        <span matTooltipVisibility="visible"
+                                [matTooltip]="song.genre.join(', ')"
+                                matTooltipHideDelay="10"
+                                *ngIf="song.genre.length > 1">{{song.genre[0]}}...</span>
+                        <span *ngIf="song.genre.length == 1">{{song.genre[0]}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="date_added">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+                    <td mat-cell *matCellDef="let song">
+                        <span class="track-added fs-6">{{song.date_added}}</span>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"
+                            (click)="clickTrack(row)" onclick="this.classList.toggle('selected');"></tr>
+            </table>
+            <mat-paginator
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
